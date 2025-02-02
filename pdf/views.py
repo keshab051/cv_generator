@@ -32,3 +32,7 @@ def accept(request):
     else:
         form = ProfileForm()
     return render(request, 'pdf/accept.html', {'form': form})
+
+def resume(request,id):
+    user_profile = Profile.objects.get(pk=id)
+    return render(request,'pdf/resume.html',{'user_profile':user_profile})
