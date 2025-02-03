@@ -1,6 +1,10 @@
 from django.shortcuts import render,redirect
 from .models import Profile
 from .forms import ProfileForm
+import pdfkit
+from django.http import HttpResponse
+from django.template import loader
+import io
 
 # def accept(request):
 #     form= movie_list(request.POST)
@@ -35,4 +39,14 @@ def accept(request):
 
 def resume(request,id):
     user_profile = Profile.objects.get(pk=id)
-    return render(request,'pdf/resume.html',{'user_profile':user_profile})
+    template = loader.get_template('pdf/resume.html')
+    html = template.render({'user_profile':user_profile})
+    options={
+            'page-size':'Letter',
+            'encoding':"UTF-8"
+    }
+    pdf = pdfkit.from_string(html,False,options)
+    response = HttpResponse(pdf,content_type='application/pdf')
+    response['content-Disposition']='attachment'
+    filename = "resume.pdf"
+    return response
