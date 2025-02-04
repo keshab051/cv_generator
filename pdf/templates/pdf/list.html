@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="en">
 
 <head>
@@ -17,16 +17,15 @@
             <div class="col-md-12">
                 <h2>CV Database Profile List</h2>
             </div>
-
         </div>
 
-        {% for profile in profiles %}
+        {% for pr in profiles %}
         <div class="row">
             <div class="col-md-6">
-                {‌{profile.name}}
+                {{ pr.name }}
             </div>
             <div class="col-md-6">
-                <a href="/{‌{profile.id}}" class="btn btn-warning">Download CV</a>
+                <a href="/{{ pr.id }}" class="btn btn-warning">Download CV</a>
             </div>
         </div>
         <hr>
